@@ -27,10 +27,8 @@ const Home = () => {
                 token : cookie.get("token")
             }
         })
-        // console.log(socketUsers)
         setSocket(socketUsers)
         socketUsers.on("onlineUsers",(data)=>{
-            // console.log(data)
             dispatch(onlineUsers(data))
         })
         

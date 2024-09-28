@@ -28,22 +28,22 @@ const UserChat = ({socket}:{socket:Socket | undefined})=>{
             currentMessage.current.scrollIntoView({ behavior: "smooth", block : 'end' });
         }
     },[messages])
-    // console.log(id)
     useEffect(()=>{
         getUserById(dispatch,id)
     },[id,dispatch])
     useEffect(()=>{
         socket?.on("allMessage",(data)=>{
-            // console.log(data)
             setMessages([...data])
+            socket?.emit("seen",id)
         })
-    },[socket])
+        return ()=>{
+            socket?.off("allMessage")
+        }
+    },[socket,id])
     useEffect(()=>{
         socket?.emit("seen",id)
         socket?.emit("give-me-messags",id)
         socket?.on("take-messages",(data)=>{
-            // console.log(data)
-            // data ? setMessages([...data]) : setMessages([])
             if(data){
                 setMessages([...data])
             }

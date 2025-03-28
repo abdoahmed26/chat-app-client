@@ -1,7 +1,6 @@
 import toast from "react-hot-toast"
-import { axiosInstance } from "./axiosInstance"
+import { axiosInstance, cookie } from "./axiosInstance"
 import { NavigateFunction } from "react-router-dom"
-import Cookie from "cookie-universal"
 
 interface dataType {
     email:string,
@@ -9,14 +8,13 @@ interface dataType {
 }
 
 export const login = (data:dataType,myUrl:NavigateFunction,setLoading:React.Dispatch<React.SetStateAction<boolean>>)=>{
-    const cookie = Cookie()
     axiosInstance.post("/auth/login",data,{
         headers:{
             'Content-Type':'application/json'
         }
     }).then(res=>{
         // console.log(res)
-        cookie.set("token",res.data.data.token)
+        cookie.set("token",res.data.data.token,{expires:new Date(Date.now()+24*60*60*1000)})
         toast.success("you logged in successfully")
         myUrl("/home")
     }).catch(err=>{

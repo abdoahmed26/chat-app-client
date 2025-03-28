@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NavigateFunction } from "react-router-dom";
-import { axiosInstance } from "./axiosInstance"
-import Cookie from 'cookie-universal';
+import { axiosInstance, cookie } from "./axiosInstance"
 import { addUser, deleteUser } from "../store/Slices/userSlice";
 
 export const getUser = (dispatch:any,myUrl:NavigateFunction)=>{
-    const cookie = Cookie()
     axiosInstance.get("/user",{
         headers:{
             "Authorization": `Bearer ${cookie.get("token")}`,

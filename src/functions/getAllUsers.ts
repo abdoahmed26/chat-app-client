@@ -1,5 +1,4 @@
-import { axiosInstance } from "./axiosInstance"
-import Cookie from 'cookie-universal';
+import { axiosInstance, cookie } from "./axiosInstance"
 import toast from "react-hot-toast"
 
 interface userData{
@@ -12,7 +11,6 @@ interface userData{
 }
 
 export const getAllUsers = (setData:React.Dispatch<React.SetStateAction<userData[]>>)=>{
-    const cookie = Cookie()
     axiosInstance.get("/user/all",{
         headers:{
             "Authorization": `Bearer ${cookie.get("token")}`,

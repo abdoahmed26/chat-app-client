@@ -1,8 +1,7 @@
-import Cookie from "cookie-universal"
 import { Navigate, Outlet } from "react-router-dom";
+import { cookie } from "../functions/axiosInstance";
 
 const GlobalPages = () => {
-    const cookie = Cookie()
     return (
         cookie.get("token") ? <Navigate to="/home" /> : <Outlet />
     );

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { axiosInstance } from "./axiosInstance"
-import Cookie from "cookie-universal"
+import { axiosInstance, cookie } from "./axiosInstance"
 import { addUser } from "../store/Slices/userSlice";
 import toast from "react-hot-toast"
 
@@ -10,7 +9,6 @@ interface dataType {
 }
 
 export const updateUser = (data:dataType,dispatch:any)=>{
-    const cookie = Cookie()
     axiosInstance.put("/user",data,{
         headers:{
             "Authorization": `Bearer ${cookie.get("token")}`,

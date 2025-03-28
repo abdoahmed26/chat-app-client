@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../functions/register";
 import { useState } from "react";
 import Header from "../components/Header";
+import LoginWithGoogle from "../components/LoginWithGoogle";
+import LoginWithGithub from "../components/LoginWithGithub";
 
 interface dataType {
     name:string,
@@ -25,12 +27,16 @@ const Register = () => {
         registerUser(allData,myUrl,setLoading)
     }
     return (
-        <div className="bg-slate-200 min-h-screen">
+        <div className="min-h-screen bg-slate-200">
             <Header />
             <div className="flex py-5 justify-center items-center min-h-[calc(100vh-120px)]">
                 <div className="container flex justify-center">
                     <div className="w-[450px] bg-white p-3 rounded-md px-4">
                         <p>Welcome to Chat app!</p>
+                        <div className="flex items-center justify-center gap-3">
+                            <LoginWithGoogle />
+                            <LoginWithGithub />
+                        </div>
                         <div className="mt-3">
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div>
@@ -41,12 +47,12 @@ const Register = () => {
                                 <div className="mt-3">
                                     <label htmlFor="email">Email : </label><br />
                                     <input type="email" {...register("email",{required:true})} id="email" name="email" placeholder="Enter your email" className="w-full h-8 mt-1 rounded-md focus:border-[2px] focus:border-primary p-2 outline-none bg-slate-200 " />
-                                    {errors.email?.type ==="required" && <p className="text-red-500 text-sm">Email is required</p>}
+                                    {errors.email?.type ==="required" && <p className="text-sm text-red-500">Email is required</p>}
                                 </div>
                                 <div className="mt-3">
                                     <label htmlFor="password">Password : </label><br />
                                     <input type="password" {...register("password",{required:true})} id="password" name="password" placeholder="Enter your password" className="w-full h-8 mt-1 rounded-md focus:border-[2px] focus:border-primary p-2 outline-none bg-slate-200 " />
-                                    {errors.password?.type ==="required" && <p className="text-red-500 text-sm">Password is required</p>}
+                                    {errors.password?.type ==="required" && <p className="text-sm text-red-500">Password is required</p>}
                                 </div>
                                 <div className="mt-3">
                                     <label htmlFor="photo">Photo : </label><br />
@@ -62,7 +68,7 @@ const Register = () => {
                                     </label>
                                     <input type="file" onChange={(e)=>setPhoto(e.target.files?.item(0))} id="photo" name="profile_pic" placeholder="Enter your photo" className="w-full hidden h-8 mt-1 rounded-md focus:border-[2px] focus:border-primary p-2 outline-none bg-slate-200 " />
                                 </div>
-                                <button disabled={loading} className="w-full text-white mt-4 rounded-md bg-primary p-2 outline-none ">
+                                <button disabled={loading} className="w-full p-2 mt-4 text-white rounded-md outline-none bg-primary ">
                                     {
                                         loading ?
                                         <span className="inline-block w-5 h-5 rounded-full border-[2px] border-black border-l-gray-500 animate-spin"></span>
@@ -71,8 +77,8 @@ const Register = () => {
                                 </button>
                             </form>
                         </div>
-                        <div className="mt-3 flex justify-center">
-                            <p>Already have account ? <Link to={"/login"} className="font-bold hover:text-primary duration-300">Login</Link></p>
+                        <div className="flex justify-center mt-3">
+                            <p>Already have account ? <Link to={"/login"} className="font-bold duration-300 hover:text-primary">Login</Link></p>
                         </div>
                     </div>
                 </div>
